@@ -164,7 +164,7 @@ with st.sidebar:
     st.markdown(
         "<div style='display:flex;align-items:center;gap:8px;margin-bottom:14px'>"
         "<span style='font-size:15px;font-weight:800;color:#1E293B'>🔎 AnomaLens</span>"
-        "<span style='background:#E8F0FE;color:#2563EB;border-radius:6px;font-size:11px;padding:2px 8px'>시계열 이상탐지</span>"
+        "<span style='background:#E8F0FE;color:#2563EB;border-radius:6px;font-size:11px;padding:2px 8px'>다변량 시계열 이상탐지 대시보드</span>"
         "</div>",
         unsafe_allow_html=True)
 
@@ -252,7 +252,7 @@ with header_col:
       font-size: 13px;
       font-weight: 600;
       padding: 3px 10px;
-    ">다변량 시계열 이상탐지</span>
+    ">다변량 시계열 이상탐지 대시보드</span>
     <p style='color:#6B7280;margin-top:8px;font-size:14px'>다변량 시계열 데이터를 자동 분석하여 이상 구간 탐지, 정상성 검정, 성능 평가 결과를 제공합니다.</p>
     """, unsafe_allow_html=True)
 status_placeholder = status_col.empty()
@@ -301,7 +301,7 @@ if uploaded_file is None:
     with ic1:
         st.markdown("""<div class="qs-card qs-info-card">
         <div class="qs-title">🧩 지원 분석 기능</div>
-        <div class="qs-desc">• STL 분해<br>• 정상성 검정 (ADF)<br>• 이상탐지<br>• 성능 평가</div></div>""",
+        <div class="qs-desc">• STL 분해 (Trend / Seasonal / Residual)<br>• 정상성 검정 (ADF)<br>• 다중 Scorer 이상탐지<br>• Precision / Recall / ROC-AUC 평가</div></div>""",
         unsafe_allow_html=True)
     with ic2:
         st.markdown("""<div class="qs-card qs-info-card">
