@@ -395,7 +395,7 @@ if label_series is not None:
     if best_auc_per_component:
         status_text = f"{source_short} · 이상 탐지 완료 · AUC {np.mean(best_auc_per_component):.2f}"
 status_placeholder.markdown(
-    f"<div style='text-align:right;margin-top:16px;font-size:13px;font-weight:600;color:{C_PRIMARY}'>{status_text}</div>",
+    f"<div style='text-align:right;margin-top:16px;font-size:13px;font-weight:600;color:{C_PRIMARY};white-space:nowrap'>{status_text}</div>",
     unsafe_allow_html=True)
 
 # 가장 영향력 큰 변수 (컴포넌트별 이상 합계 기준)
