@@ -1,36 +1,26 @@
 # 샘플 데이터 출처 (Attribution)
 
-두 샘플 데이터 모두 합성 데이터가 아닌, 공개된 시계열 이상탐지 벤치마크에서 가져온 실제 데이터입니다.
+샘플은 합성 데이터가 아닌, 공개된 시계열 이상탐지 벤치마크에서 가져온 실제 데이터입니다.
 원본 값은 변형하지 않았으며, 컬럼명과 형식만 정리했습니다.
 
 ---
 
-## 1. smd_server_machine.csv
+## gecco2019_sample.csv
 
-- **출처**: Server Machine Dataset (SMD)
-- **논문**: Su et al., "Robust Anomaly Detection for Multivariate Time Series through Stochastic Recurrent Neural Network", KDD 2019
-- **GitHub**: https://github.com/NetManAIOps/OmniAnomaly/tree/master/ServerMachineDataset
-- **라이선스**: MIT License
-- **원본 파일**: `test/machine-1-1.txt` + `test_label/machine-1-1.txt`
-- **설명**: 인터넷 대기업 서버 노드에서 수집한 38개 성능 지표 (CPU, 메모리, 네트워크 등)
-  5주치 데이터 중 테스트 구간(약 20일), 분 단위, 이상 비율 ~9.5%
-
----
-
-## 2. psm_server_metrics.csv
-
-- **출처**: Pooled Server Metrics (PSM), eBay
-- **논문**: Abdulaal & Lancewicki, "Practical Approach to Asynchronous Multivariate Time Series Anomaly Detection and Localization", KDD 2021
-- **GitHub**: https://github.com/eBay/RANSynCoders/tree/main/data
-- **라이선스**: Apache License 2.0
-- **원본 파일**: `test.csv` + `test_label.csv`
-- **설명**: eBay 애플리케이션 서버 노드의 25개 KPI 지표 (분 단위)
-  원본 87,841행 중 앞 5,000행, 이상 비율 ~6.6%
-
----
+- **출처**: GECCO Industrial Challenge 2019 — Water Quality Anomaly Detection
+  (Genetic and Evolutionary Computation Conference 2019 산업 챌린지)
+- **주최**: TH Köln (Technische Hochschule Köln)
+- **공식 페이지**: https://www.th-koeln.de/informatik-und-ingenieurwissenschaften/gecco-2019-industrial-challenge-detecting-anomalies-in-drinking-water-quality_63959.php
+- **라이선스**: 공개 대회 데이터 (비상업적 연구/교육 목적 사용 가능)
+- **설명**: 음료수 정수 처리 공정에서 수집한 6개 수질 센서의 다변량 시계열
+  - `temperature_c`(수온), `ph`(산도), `conductivity_ms`(전기전도도),
+    `turbidity_ntu`(탁도), `uv_absorption`(UV 흡광도), `flow_rate_lmin`(유량)
+  - 6,000행, 1분 간격 (2017-07-22 ~ 2017-07-26)
+  - 실제 이상 라벨(`is_anomaly`) 포함, 이상 비율 약 0.95% (57건)
 
 ## 가공 내용
 
-- SMD: 공백 구분자(txt) → 컬럼명 추가 + timestamp 컬럼 생성 + is_anomaly 라벨 병합
-- PSM: 정수 분 단위 timestamp → datetime 변환 + is_anomaly 라벨 병합
-- 값 자체는 변형 없음
+- 원본 데이터에서 이상 구간이 앱의 기본 탐지 구간(뒤쪽 30%) 안에 포함되도록 구간을
+  잘라 슬라이싱했습니다 — 그래야 AUC-ROC/Precision/Recall 같은 정량 평가가 실제로
+  의미 있게 계산됩니다.
+- 컬럼명을 영문 소문자 + 단위 접미사로 정리했습니다 (값 자체는 변형 없음).
