@@ -86,7 +86,7 @@ class _BuiltinFile:
         return self._data
 
 # ── 시각화 헬퍼 ──────────────────────────────────────────────────────────────
-def kpi_card(col, label: str, value: str, delta: str = "", color: str = C_PRIMARY, value_font_size: int = 28):
+def kpi_card(col, label: str, value: str, delta: str = "", color: str = C_PRIMARY):
     # 줄바꿈으로 분리된 멀티라인 f-string은 delta가 빈 문자열일 때 그 줄이 공백만 남는
     # 빈 줄이 되어, 마크다운 HTML 블록 파서가 그 지점에서 블록을 끊고 이후의 "</div>"를
     # 원시 HTML이 아닌 일반 텍스트로 취급해 화면에 그대로 노출시킨다. 줄바꿈 없는 단일
@@ -97,7 +97,7 @@ def kpi_card(col, label: str, value: str, delta: str = "", color: str = C_PRIMAR
         f'padding:16px 16px 14px;border-top:3px solid {color}">'
         f'<div style="font-size:11px;font-weight:600;letter-spacing:.02em;color:{C_NEUTRAL};'
         f'margin-bottom:6px;text-transform:uppercase">{label}</div>'
-        f'<div style="font-size:{value_font_size}px;font-weight:800;color:{color};line-height:1.1;'
+        f'<div style="font-size:28px;font-weight:800;color:{color};line-height:1.1;'
         f'white-space:nowrap">{value}</div>'
         f'{delta_html}'
         f'</div>'
@@ -610,12 +610,14 @@ with tab_quality:
     q = quality_report
     st.markdown("업로드된 데이터의 기초 품질 분석 결과입니다.")
     qc1, qc2, qc3, qc4, qc5, qc6 = st.columns(6)
-    kpi_card(qc1, "총 행 수", f"{q.n_rows:,}")
-    kpi_card(qc2, "변수 수", f"{q.n_cols}개")
-    kpi_card(qc3, "시작일", str(q.start_date)[:10], value_font_size=20)
-    kpi_card(qc4, "종료일", str(q.end_date)[:10], value_font_size=20)
-    kpi_card(qc5, "추정 주기", q.freq_guess or "불규칙")
-    kpi_card(qc6, "분석 기간", q.duration_str)
+    # 시작일/종료일 카드에만 연도 캡션(delta)이 붙어 키가 달라지므로, 나머지 카드에도
+    # 보이지 않는 빈 캡션을 넣어 6개 카드의 높이를 동일하게 맞춘다.
+    kpi_card(qc1, "총 행 수", f"{q.n_rows:,}", delta=" ")
+    kpi_card(qc2, "변수 수", f"{q.n_cols}개", delta=" ")
+    kpi_card(qc3, "시작일", q.start_date.strftime("%m-%d"), delta=f"{q.start_date.year}년")
+    kpi_card(qc4, "종료일", q.end_date.strftime("%m-%d"), delta=f"{q.end_date.year}년")
+    kpi_card(qc5, "추정 주기", q.freq_guess or "불규칙", delta=" ")
+    kpi_card(qc6, "분석 기간", q.duration_str, delta=" ")
 
     st.markdown("<br>", unsafe_allow_html=True)
     mc1, mc2 = st.columns(2)
