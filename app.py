@@ -164,7 +164,7 @@ with st.sidebar:
     st.markdown(
         "<div style='display:flex;align-items:center;gap:8px;margin-bottom:14px'>"
         "<span style='font-size:15px;font-weight:800;color:#1E293B'>🔎 AnomaLens</span>"
-        "<span style='background:#E8F0FE;color:#2563EB;border-radius:6px;font-size:11px;padding:2px 8px'>다변량 시계열 이상탐지 대시보드</span>"
+        "<span style='background:#E8F0FE;color:#2563EB;border-radius:6px;font-size:11px;padding:2px 8px'>시계열 이상탐지</span>"
         "</div>",
         unsafe_allow_html=True)
 
