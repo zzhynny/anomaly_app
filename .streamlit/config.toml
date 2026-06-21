@@ -7,6 +7,7 @@ font = "sans serif"
 
 [server]
 maxUploadSize = 50
+# Python version은 .python-version 파일로 지정
 
 [browser]
 gatherUsageStats = false
